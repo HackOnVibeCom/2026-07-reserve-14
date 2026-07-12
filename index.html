@@ -1,20 +1,270 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>HackOnVibe — team project</title>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FORGE Launchpad — HackOnVibe July 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:#10051f;color:#fff8ff;font-family:Inter,system-ui,sans-serif;padding:2rem;line-height:1.7}
-main{max-width:48rem}
-.q{font-size:1.3rem;font-weight:700;margin:0 0 1rem}
-.a{color:#c8b9d8;font-size:1.05rem;margin:0}
-u{text-underline-offset:3px}
-a{color:#19f7ff;word-break:break-word}
-code{background:rgba(255,255,255,.08);padding:2px 7px;border-radius:6px}
-.build{color:#c8b9d8;font-size:.95rem;margin:1.4rem 0 0;padding-top:1rem;border-top:1px solid rgba(255,255,255,.12)}
+  :root,
+  [data-theme="light"] {
+    --bg: #F6F3EE;
+    --surface: #FFFFFF;
+    --surface-alt: #EEE8DE;
+    --text: #221D19;
+    --text-muted: #6B615A;
+    --border: #DDD3C4;
+    --ember: #A8431F;
+    --ember-strong: #832F13;
+    --gold: #A6791E;
+  }
+  [data-theme="dark"] {
+    --bg: #1A1613;
+    --surface: #241E1A;
+    --surface-alt: #2B2420;
+    --text: #F2ECE4;
+    --text-muted: #B3A69B;
+    --border: #453A32;
+    --ember: #D97A4E;
+    --ember-strong: #E89571;
+    --gold: #D1A94A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  h1, h2 { font-family: "Space Grotesk", "Inter", system-ui, sans-serif; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }
+  header { text-align: center; margin-bottom: 24px; position: relative; }
+  .theme-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .theme-toggle:hover { border-color: var(--ember); }
+  .brand { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; }
+  .tagline { color: var(--text-muted); font-size: 1.05rem; }
+  h1 { font-size: 2.1rem; margin: 0; color: var(--text); }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 32px 0; }
+  .btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .btn-primary { background: var(--ember); color: #fff; }
+  .btn-primary:hover { background: var(--ember-strong); }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--ember); color: var(--ember-strong); }
+  .links-row { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-bottom: 40px; font-size: 0.88rem; }
+  .links-row a { color: var(--text-muted); text-decoration: none; border-bottom: 1px dashed var(--border); }
+  .links-row a:hover { color: var(--ember-strong); border-color: var(--ember); }
+  hr { border: none; border-top: 2px solid var(--gold); margin: 40px 0; }
+  section h2 { font-size: 1.4rem; margin-bottom: 4px; color: var(--text); }
+  section p { color: var(--text); margin-top: 16px; }
+  section a { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; }
+  section a:hover { color: var(--ember-strong); border-bottom-color: var(--ember-strong); }
+  .disclosure {
+    margin: 28px 0;
+    padding: 14px 16px;
+    border-left: 3px solid var(--gold);
+    background: var(--surface-alt);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  footer a { color: var(--text-muted); }
+  footer a:hover { color: var(--ember-strong); }
+  .star { width: 30px; height: 30px; flex-shrink: 0; }
 </style>
 </head>
-<body><main>
-<p class="q">Q: How to automate pushing to GitHub via the CLI using your AI.</p>
-<p class="a">A: A <strong><u>guide</u></strong> on <strong><u>how to automate pushing to GitHub via the CLI using your AI</u></strong> (without your involvement in PRs, merging, or <strong><u>conflict resolution</u></strong> (AI itself takes on the "headache" of it)) <a href="https://docs.github.com/en/github-cli/github-cli/quickstart">https://docs.github.com/en/github-cli/github-cli/quickstart</a> &amp; <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens</a></p>
-<p class="build">⏱️ Build time: after you push to <code>main</code>, your site goes live in about <strong>2–5 minutes</strong>. If it's still not live after 5 minutes, something went wrong — <strong>raise the alarm</strong> so the organizers can help.</p>
-</main></body>
+<body>
+<div class="wrap">
+
+<header>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+    <span id="themeIcon">&#9728;</span>
+    <span id="themeLabel">Light</span>
+  </button>
+  <div class="brand">
+    <svg class="star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M12 2 L14.5 9 L21 9 L15.5 13.2 L17.5 20 L12 15.9 L6.5 20 L8.5 13.2 L3 9 L9.5 9 Z"
+            fill="none" stroke="var(--ember)" stroke-width="1.4" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="2.2" fill="var(--gold)"/>
+    </svg>
+    <h1>FORGE Launchpad</h1>
+  </div>
+  <p class="tagline">Real launch-promo copy and collateral, generated from real facts about a real launch.</p>
+</header>
+
+<div class="cta-row">
+  <a class="btn btn-primary" href="https://forge-launchpad.azurewebsites.net">Try FORGE Launchpad</a>
+  <a class="btn btn-secondary" href="https://forge-advisor-lite.azurewebsites.net">See the app it promotes: FORGE Advisor Lite</a>
+</div>
+
+<div class="links-row">
+  <a href="https://github.com/plditallo/forge-launchpad">Launchpad source (GitHub)</a>
+  <a href="https://github.com/plditallo/forge-advisor">Advisor Lite source (GitHub)</a>
+</div>
+
+<hr />
+
+<section>
+  <h2>What this is</h2>
+  <p>
+    HackOnVibe's July 2026 theme was effective promotion of a newly launched mobile app.
+    FORGE Launchpad is the literal answer to that theme: an AI-assisted tool that generates
+    real launch-promotion materials, app store listings, landing page copy, social launch
+    posts, a roadmap infographic, and an Instagram-ready square ad, grounded in facts about
+    an actual launch rather than invented ones.
+  </p>
+  <p>
+    Its first real subject is FORGE Advisor Lite, a synthetic test-data generator that was
+    built and deployed the same weekend. Everything Launchpad generated for that launch, the
+    copy, the visuals, the roadmap graphic, is real output from a real tool promoting a real,
+    installable, live application.
+  </p>
+</section>
+
+<hr />
+
+<section>
+  <h2>About the product: FORGE Advisor Lite</h2>
+
+  <p><strong>The problem.</strong> Anyone who has tested software knows the drill: you need
+  customers, you need invoices, you need enough of them, related to each other in ways that
+  actually make sense, before you can trust a system works. Most synthetic-data tools produce
+  isolated, random-looking records, a customer with no invoices, an invoice for a customer
+  that doesn't exist. FORGE Advisor Lite exists to fix that specific, unglamorous, very real
+  problem.</p>
+
+  <p><strong>What it actually is.</strong> A small web application, built in a single weekend,
+  that generates realistic synthetic test data, currently Customers and Invoices, for a
+  business in whatever industry you tell it. Every invoice correctly points to a real
+  customer, and industry-specific segments (in the first steward's case, vacation-rental
+  accounts, billed differently and more often) are handled consistently across every export.
+  It exports CSV, XML, and JSON from a single generation, no re-running the underlying AI call
+  per format, since that would risk the files disagreeing with each other. It's also
+  installable: open it in Chrome on Android, and the browser offers to add it to the home
+  screen, launching full-screen, no address bar, indistinguishable at a glance from a native
+  app.</p>
+
+  <p><strong>The idea underneath it: Industry Stewards.</strong> Rather than generating random
+  records, FORGE Advisor Lite grounds every dataset in an Industry Steward, a structured model
+  of how a specific kind of business actually operates, built from real domain knowledge
+  rather than statistical guesswork. The first steward covers commercial janitorial services,
+  drawing on published standards from the Building Service Contractors Association
+  International, combined with direct input from a real business owner, an actual working
+  steward, who runs a professional housekeeping company and is lending real operational
+  knowledge to how the data gets modeled. Janitorial services was chosen deliberately: almost
+  everyone understands the business already, yet it still contains real complexity worth
+  modeling correctly, recurring contracts, per-visit billing, a distinct vacation-rental
+  segment. The underlying pipeline, in plain terms: Business Vocabulary feeds Business Rules,
+  which shape Business Objects, connected by Relationships, producing a Synthetic Business,
+  exported as CSV, XML, or JSON.</p>
+
+  <p><strong>Why this matters beyond one weekend.</strong> This steward model is meant to be
+  the foundation of a larger platform, FORGE Agent, an AI-driven data certification and
+  marketplace tool that scores datasets across dimensions like quality, compliance, and
+  governance. An AI certification engine can't invent, on its own, what "compliant" or
+  "high-quality" means for a given industry, a real domain expert has to define that first.
+  The janitorial steward being built right now is the first real instance of exactly the
+  mechanism the whole certification platform will eventually depend on, for every industry it
+  covers. There's a second layer too: a steward who actually runs a business notices when
+  something in their industry shifts, often before any standards body gets around to
+  publishing it, making the steward network less a static reference library and more a live
+  sensing mechanism for industry change.</p>
+
+  <p><strong>Staying honest about scope.</strong> This project draws a clear, deliberate line
+  between what's real today and what's aspirational. Today: one steward, one industry, two
+  entity types, three export formats, a real deployed URL, a real installable app. Tomorrow:
+  more stewards across more industries, healthcare, construction, retail, and others, each
+  eventually with its own steward relationship the way janitorial services has one now. Every
+  "coming soon" is phrased as a direction, not a promise, and every "today" claim is something
+  a visitor can actually go verify by opening the app.</p>
+
+  <p><strong>The build itself.</strong> Real weekend, real friction: an Azure region with zero
+  compute quota until a different region was tried, a PWA install prompt that silently refused
+  to appear until a service-worker scope bug was traced and fixed, a file-format caching
+  inconsistency flagged honestly and deliberately left for later rather than chased against
+  the clock. None of that is a dramatic story. It's the actual texture of building something
+  real in a weekend, which is more credible than a project that claims everything went
+  according to plan.</p>
+</section>
+
+<div class="disclosure">
+  This page includes an AI-generated audio overview (via Google NotebookLM, two synthetic
+  voices, produced from a written project briefing) linked from within the FORGE Launchpad
+  app itself. It is not a human-recorded podcast and no real hosts are involved.
+</div>
+
+<hr />
+
+<section>
+  <h2>About the Builder</h2>
+  <p>
+    <strong>Paula DiTallo</strong> is the Founder and Innovator at Bauhaus Technology and
+    Graphic Holdings LLC, a consulting and product development firm focused on data strategy,
+    monetization, and enterprise data management. Paula is the author of
+    <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6232958">Security Without
+    Accountability: The LAG Framework for Web 3.0 Governance</a>,
+    <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6253460">Algorithmic
+    Infrastructures and the Temporal Reconfiguration of Accountability in Digital
+    Governance</a>,
+    <a href="https://www.researchgate.net/publication/404151942_Forging_Data_into_Value_The_FORGE_Model_for_Data_Productization_in_Mid-Market_Firms">Forging
+    Data into Value: The FORGE Model for Data Productization in Mid-Market Firms</a>, and
+    <a href="https://www.amazon.com/Future-Leadership-Rise-Fractional-CXO-ebook/dp/B0GX3F7NY3/ref=sr_1_1?">The
+    Future of IT Leadership: The Rise of the Fractional CXO</a>. Paula brings deep expertise in
+    data governance, product design, and enterprise architecture to the FORGE project.
+  </p>
+</section>
+
+<footer>
+  Built for HackOnVibe, July 2026. &middot;
+  <a href="https://forge-launchpad.azurewebsites.net">forge-launchpad.azurewebsites.net</a>
+</footer>
+
+</div>
+<script>
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const isDark = theme === "dark";
+    document.getElementById("themeIcon").textContent = isDark ? "\u{1F319}" : "\u2600";
+    document.getElementById("themeLabel").textContent = isDark ? "Dark" : "Light";
+    localStorage.setItem("forge-launchpad-landing-theme", theme);
+  }
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme");
+    applyTheme(current === "dark" ? "light" : "dark");
+  });
+  const saved = localStorage.getItem("forge-launchpad-landing-theme");
+  applyTheme(saved === "dark" ? "dark" : "light");
+</script>
+</body>
 </html>
